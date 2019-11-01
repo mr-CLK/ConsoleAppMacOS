@@ -9,7 +9,7 @@ struct Student
     char first_name[50], last_name[50], course[100], id[20];
     int section;
 
-    int start_stream();
+    static int start_stream();
     static void add_record();
     static void list_records();
     static void search_record();

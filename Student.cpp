@@ -13,9 +13,11 @@ long int recsize = sizeof(e);
 int switch_on;
 
 void clearTheConsole(){
-    cout<< "Clearing the console";
-
+    cout<< "Clearing the console"
+           "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+           "Console cleared.\n\n";
 }
+
 int Student::start_stream() {
     fp = fopen("users.txt", "rb+");						// Opens a file as a binary file for update(both for input and output).		r = read/update		b = binary		"+" means mixed mod
 
@@ -54,7 +56,7 @@ void Student::add_record() {
 }
 
 void Student::list_records() {
-
+    clearTheConsole();
     rewind(fp);											// Sets the position indicator associated with stream to the beginning of the file
     cout << "..:: All STUDENT RECORDS ::..";
     cout << "\n";
@@ -69,7 +71,7 @@ void Student::list_records() {
 }
 
 void Student::search_record() {
-
+    clearTheConsole();
     cout << "Search by:\n"
             "1)Id\n"
             "2)Last Name\n"

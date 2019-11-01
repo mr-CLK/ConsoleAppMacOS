@@ -63,7 +63,9 @@ int main() {
             Student::modify_record();
             break;
         }
-
     }
+    string whysoserious;
+    cout<<"Do you want to do another operation? Answer as Y/N";
+    cin>>whysoserious;
     return 0;
 }

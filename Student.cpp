@@ -3,16 +3,16 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 #include "Student.h"
 FILE* fp, * ft;											//File definition
 
 struct Student e;
-char xfirst_name[50], xlast_name[50], xcourse[100], xid[20], another;
+char xlast_name[50], xcourse[100], xid[20], another;
 long int recsize = sizeof(e);
 int switch_on;
 
-void clearTheConsole(){
+void clearTheConsole(){    //pathetic, but works
     cout<< "Clearing the console"
            "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
@@ -26,7 +26,7 @@ int Student::start_stream() {
 
         if (fp == NULL)
         {
-            puts("Cannot open file");
+            puts("File cannot be opened");
             return 0;
         }
     }
@@ -37,18 +37,18 @@ void Student::add_record() {
     another = 'Y';
     while (another == 'Y' || another == 'y')
     {
-        cout << "Enter the first name: ";
+        cout << "\nEnter the first name: ";
         cin >> e.first_name;
-        cout << "Enter the last name: ";
+        cout << "\nEnter the last name: ";
         cin >> e.last_name;
-        cout << "Enter the ID	    : ";
+        cout << "\nEnter the ID: ";
         cin >> e.id;
-        cout << "Enter the Course   : ";
+        cout << "\nEnter the Course: ";
         cin >> e.course;
-        cout << "Enter the Section  : ";
+        cout << "\nEnter the Section: ";
         cin >> e.section;
         fwrite(&e, recsize, 1, fp);						// Write block of data to stream
-        cout << "\n Add Another Record (Y/N) ";
+        cout << "\n\nAdd Another Record (Y/N): ";
         fflush(stdin);									// Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
         another = getchar();
     }
@@ -57,13 +57,18 @@ void Student::add_record() {
 void Student::list_records() {
     clearTheConsole();
     rewind(fp);											// Sets the position indicator associated with stream to the beginning of the file
-    cout << "..:: All STUDENT RECORDS ::..";
+    cout << setw(65) <<"..:: All STUDENT RECORDS ::..";
+    cout<<"\n--------------------------------------------------------------------------------------------------------------";
     cout << "\n";
     cout << "First Name" << setw(25) << "Last Name" << setw(25) << "Id" << setw(25) << "Courses" << setw(25) << "Section";
     while (fread(&e, recsize, 1, fp) == 1)				// A loop that reads records until element count reaches to size in file fp
     {
         cout << "\n";
-        cout << "\n" << e.first_name << setw(27) << e.last_name << setw(36) << e.id << setw(18) << e.course << setw(19) << e.section;
+        cout << "\n" << e.first_name;
+        cout << setw(27) << e.last_name;
+        cout << setw(36) << e.id;
+        cout << setw(18) << e.course;
+        cout << setw(19) <<e.section;
     }
     cout << "\n\n";
 
@@ -191,7 +196,7 @@ void Student::delete_record() {
     another = 'Y';
     while (another == 'Y' || another == 'y')
     {
-        cout << "\n Enter the last name of the student to delete : ";
+        cout << "\n Enter the last name of the student to delete: ";
         cin >> xlast_name;
 
         ft = fopen("temp.dat", "wb");					// Temporarily passing data to prevent unwanted packet loss and removing the record from file
@@ -208,7 +213,7 @@ void Student::delete_record() {
 
         fp = fopen("users.txt", "rb+");					// Establishing the connection again with users.txt
 
-        cout << "\nDelete Another Record (Y/N)?"<<endl;
+        cout << "\nDelete another record? (Y/N)"<<endl;
         fflush(stdin);									// Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
         another = getchar();
     }

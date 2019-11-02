@@ -27,7 +27,8 @@ int main() {
           "\n1. Enter a new student record."
           "\n2. List all records."
           "\n3. Modify a student."
-          "\n4. Search by student ID, surname or taken courses"
+          "\n4. Delete a record."
+          "\n5. Search by student ID, surname or taken courses."
           "\nTo enter an operation, type the ID of it."
           "\nMy number is: ";
     fflush(stdin);    //Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
@@ -56,16 +57,16 @@ int main() {
             break;
         }
         case 3: {
-            Student::search_record();
-            break;
-        }
-        case 4: {
             Student::modify_record();
             break;
         }
+        case 4: {
+            Student::delete_record();
+            break;
+        }
+        case 5: {
+            Student::search_record();
+        }
     }
-    string whysoserious;
-    cout<<"Do you want to do another operation? Answer as Y/N";
-    cin>>whysoserious;
-    return 0;
+
 }

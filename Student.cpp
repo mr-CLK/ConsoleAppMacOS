@@ -14,8 +14,7 @@ int switch_on;
 
 void clearTheConsole(){
     cout<< "Clearing the console"
-           "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-           "Console cleared.\n\n";
+           "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 int Student::start_stream() {
@@ -34,7 +33,7 @@ int Student::start_stream() {
 }
 
 void Student::add_record() {
-    fseek(fp, 0, SEEK_END);								// Sets the position indicator associated with the stream to a new position
+    fseek(fp, 0, SEEK_END); 								// Sets the position indicator associated with the stream to a new position
     another = 'Y';
     while (another == 'Y' || another == 'y')
     {
@@ -72,11 +71,11 @@ void Student::list_records() {
 
 void Student::search_record() {
     clearTheConsole();
-    cout << "Search by:\n"
-            "1)Id\n"
-            "2)Last Name\n"
-            "3)Course\n"
-            "Choose an option:";
+    cout << "You can search with: "
+            "\n1- ID of the student."
+            "\n2- Last name of the student."
+            "\n3- Courses that the student takes."
+            "\nTo search, enter the number of an operation: ";
     cin >> switch_on;
 
     rewind(fp);											// Sets the position indicator associated with stream to the beginning of the file
@@ -85,51 +84,73 @@ void Student::search_record() {
         switch (switch_on)								// Another switch statement for option handling
         {
             case 1:
-                cout << "\n Enter the id of the student : ";
+                cout << "\n Enter the ID of the student: ";
                 cin >> xid;
 
-                if (strcmp(e.id, xid) == 0)					// It is nothing but Compares two strings
-                {
-                    cout << "\n" << e.first_name << setw(27) << e.last_name << setw(36) << e.id << setw(18) << e.course << setw(19) << e.section << endl;
+                if (strcmp(e.id, xid) == 0){				// It is nothing but comparing two strings
+                    cout << "\n" << e.first_name
+                    << setw(27) << e.last_name
+                    << setw(36) << e.id
+                    << setw(18) << e.course
+                    << setw(19) << e.section
+                    << endl;
+
                     fseek(fp, -recsize, SEEK_CUR);			// Sets the position indicator associated with the stream to a new position
                     fwrite(&e, recsize, 1, fp);				// Write block of data to stream
-                    system("pause");						// Just stop the process and await user interaction
+                    // Removed due to Unix problems. system("pause");			// Just stop the process and await user interaction
                 }
-                else
-                    cout << "record not found";
+                else cout << "No record has been found.";
                 break;
+
             case 2:
-                cout << "\n Enter the last name of the student : ";
+                cout << "\n Enter the last name of the student: ";
                 cin >> xlast_name;
-                if (strcmp(e.last_name, xlast_name) == 0)
-                {
-                    cout << "\n" << e.first_name << setw(27) << e.last_name << setw(36) << e.id << setw(18) << e.course << setw(19) << e.section << endl;;
+
+                if (strcmp(e.last_name, xlast_name) == 0){
+                    cout << "\n" << "First Name"
+                         << setw(27) << "Last Name"
+                         << setw(36) << "ID"
+                         << setw(18) << "Course"
+                         << setw(19) << "Section"
+                         << endl;
+                    cout << "\n" << e.first_name
+                         << setw(27) << e.last_name
+                         << setw(36) << e.id
+                         << setw(18) << e.course
+                         << setw(19) << e.section
+                         << endl;
+
                     fseek(fp, -recsize, SEEK_CUR);
                     fwrite(&e, recsize, 1, fp);
-                    system("pause");
+                    //Removed due to Unix problems. system("pause");
                 }
-                else
-                    cout << "record not found";
+                else cout << "No record has been found.";
                 break;
 
             case  3:
-                cout << "\n Enter the course taken by the student : ";
+                cout << "\n Enter the course taken by the student: ";
                 cin >> xcourse;
-                while (strcmp(e.course, xcourse) == 0)
-                {
-                    cout << "\n" << e.first_name << setw(27) << e.last_name << setw(36) << e.id << setw(18) << e.course << setw(19) << e.section << endl;
+
+                while (strcmp(e.course, xcourse) == 0){
+                    cout << "\n" << e.first_name
+                         << setw(27) << e.last_name
+                         << setw(36) << e.id
+                         << setw(18)<< e.course
+                         << setw(19)<< e.section
+                         << endl;
+
                     fseek(fp, -recsize, SEEK_CUR);
                     fwrite(&e, recsize, 1, fp);
-                    system("pause");
+                    // Removed due to Unix problems. system("pause");
                 }
                 break;
-            default:
-                break;
+
+            default: break;
         }
     }
     fflush(stdin);										// Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
     cout << "\n\n";
-    system("pause");									// Just stop the process and await user interaction
+    // Removed due to Unix problems. system("pause");									// Just stop the process and await user interaction
 }
 
 void Student::modify_record() {
@@ -144,22 +165,21 @@ void Student::modify_record() {
         {
             if (strcmp(e.last_name, xlast_name) == 0)
             {
-                cout << "Enter new the First Name: ";
+                cout << "\nEnter new first name:";
                 cin >> e.first_name;
-                cout << "Enter new the Last Name: ";
+                cout << "\nEnter new last name: ";
                 cin >> e.last_name;
-                cout << "Enter the ID   		: ";
+                cout << "\nEnter the ID: ";
                 cin >> e.id;
-                cout << "Enter new the Course   : ";
+                cout << "\nEnter new the Course: ";
                 cin >> e.course;
-                cout << "Enter new the Section  : ";
+                cout << "\nEnter new the Section: ";
                 cin >> e.section;
                 fseek(fp, -recsize, SEEK_CUR);
                 fwrite(&e, recsize, 1, fp);
                 break;
             }
-            else
-                cout << "record not found";
+            else cout << "No record has been found.";
         }
         cout << "\n Modify Another Record (Y/N) ";
         fflush(stdin);									// Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
@@ -177,20 +197,18 @@ void Student::delete_record() {
         ft = fopen("temp.dat", "wb");					// Temporarily passing data to prevent unwanted packet loss and removing the record from file
 
         rewind(fp);										// Sets the position indicator associated with stream to the beginning of the file
-        while (fread(&e, recsize, 1, fp) == 1)			// A loop that reads records until element count reaches to size in file users.txt to find matching last name on record that we want to remove
 
-            if (strcmp(e.last_name, xlast_name) != 0)
-            {
-                fwrite(&e, recsize, 1, ft);				// Write block of data form users/txt to temp.dat file stream
-            }
-        fclose(fp);										// Closing the user.txt connection
-        fclose(ft);										// Closing the temp.dat connection
+        while (fread(&e, recsize, 1, fp) == 1)			// A loop that reads records until element count reaches to size in file users.txt to find matching last name on record that we want to remove
+            if (strcmp(e.last_name, xlast_name) != 0){fwrite(&e, recsize, 1, ft);}				// Write block of data form users/txt to temp.dat file stream
+
+            fclose(fp);										// Closing the user.txt connection
+            fclose(ft);										// Closing the temp.dat connection
         remove("users.txt");
         rename("temp.dat", "users.txt");
 
         fp = fopen("users.txt", "rb+");					// Establishing the connection again with users.txt
 
-        cout << "\n Delete Another Record (Y/N) ";
+        cout << "\nDelete Another Record (Y/N)?"<<endl;
         fflush(stdin);									// Flushes the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
         another = getchar();
     }

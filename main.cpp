@@ -37,7 +37,7 @@ int main() {
         getline(cin, ChosenNumber);
         try {
             int parsed = stoi(ChosenNumber);
-            if (parsed < 5) {
+            if (parsed < 6) {
                 break;
             }
         } catch (std::invalid_argument) {

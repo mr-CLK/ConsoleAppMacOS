@@ -162,13 +162,13 @@ void Student::modify_record() {
     another = 'Y';
     while (another == 'Y' || another == 'y')
     {
-        cout << "\n Enter the last name of the student : ";
-        cin >> xlast_name;
+        cout << "\n Enter the ID of the student : ";
+        cin >> xid;
 
         rewind(fp);										// Sets the position indicator associated with stream to the beginning of the file
         while (fread(&e, recsize, 1, fp) == 1)			// A loop that reads records until element count reaches to size in file fp
         {
-            if (strcmp(e.last_name, xlast_name) == 0)
+            if (strcmp(e.id, xid) == 0)
             {
                 cout << "\nEnter new first name:";
                 cin >> e.first_name;
